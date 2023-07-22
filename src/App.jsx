@@ -1,35 +1,15 @@
 import { useState, useEffect } from "react";
 import "./index.css";
-import image from "./noimage.jpg";
+import FavoritePage from "./Pages/FavoritePages";
+import Header from "./Components/Header";
+import Sidebar from "./Components/Sidebar";
+import MainContent from "./Pages/HomePages/MainContent";
+import {book} from "./Data/DefaultBookData"
+import {Route,Routes} from 'react-router-dom';
 
 // book.volumeInfo.title
 
-const book = [
-  {
-    id: 12,
-    isLiked: false,
-    volumeInfo: {
-      title: "Manchester City | Triple Winner",
-      author: "Pep GUADIOLA",
-    },
-  },
-  {
-    id: 13,
-    isLiked: false,
-    volumeInfo: {
-      title: "Manchester United | Noob Team",
-      author: "Ronaldo",
-    },
-  },
-  {
-    id: 14,
-    isLiked: false,
-    volumeInfo: {
-      title: "Manchester United | Noob Team",
-      author: "Ronaldo",
-    },
-  },
-];
+
 
 function App() {
   const [bookData, setBookData] = useState(book);
@@ -101,131 +81,21 @@ function App() {
   return (
     <>
       <div className="container">
-        <div className="header">
-          <Header />
-          <Favorite favorite={favorite} />
-        </div>
-
+        <Header favorite={favorite}/>
         <Sidebar />
-        <div className="content">
-          <SearchBar
-            search={search}
-            setSearch={setSearch}
-            searchInput={searchInput}
-          />
-          <div className="content-grid">
-            <Card bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker} />
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element ={<MainContent search={search} setSearch={setSearch} searchInput={searchInput} bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker}/>} />
+          <Route path="favorite" element={<FavoritePage />} />
+        </Routes>
       </div>
     </>
   );
 }
 export default App;
 
-function Header() {
-  return <div className="header-library">LIBRARY</div>;
-}
-
-function Favorite({favorite}) {
 
 
-  return (
-    <div className="header-fav">
-      Favorite
-      <span className="cart">🛒</span>
-     <span className="header-fav-count" >{favorite.length}</span>
-    </div>
-  );
-}
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
-      <h2>Sidebar</h2>
-      <div className="options">
-        <span>Profile</span>
-        <span>Setting</span>
-        <span>Users</span>
-      </div>
-    </div>
-  );
-}
 
-function Card({ bookData, handleLiked , handleRemove , favoriteChecker }) {
-  return (
-    <>
-      {bookData?.map((book) => {
-        let thumbnails =
-          book.volumeInfo.imageLinks &&
-          book.volumeInfo.imageLinks.smallThumbnail;
-        let title = book.volumeInfo.title;
-        let author = book.volumeInfo.authors;
-        let categories = book.volumeInfo.categories;
-        let pageCount = book.volumeInfo.pageCount;
-        let preview = book.volumeInfo.previewLink;
-        let subtitles = book.volumeInfo.subtitle;
-        let none = "No Details";
 
-        return (
-          <div className="card" key={book.id}>
-            <div className="title">{title}</div>
-            <img
-              src={!thumbnails ? image : thumbnails}
-              alt={title}
-              onError={({ e }) => {
-                e.onerror = null;
-                e.src = image;
-              }}
-            />
-            <div className="desc">{!subtitles ? none : subtitles}</div>
-            <div className="pages-count">Pages count: {pageCount}</div>
-            <div className="preview-heart">
-              <a
-                className="preview-link"
-                rel="noopener noreferrer"
-                target="_blank"
-                href={preview}
-              >
-                Preview
-              </a>
-              {favoriteChecker(book.id) ? 
-              
-              <button onClick={() => handleRemove(book.id)}>
-                💔
-              </button>
-              : 
-              <button onClick={() => handleLiked(book)}>
-              ❤️
-              </button>
-              }
-            </div>
-            <div className="type">
-              <div className="category">Categories:</div>
-              <span>{!categories ? none : categories}</span>
-            </div>
-            <div className="type">
-              <div className="author">Author:</div>
-              <span>{!author ? none : author}</span>
-            </div>
-          </div>
-        );
-      })}
-    </>
-  );
-}
 
-function SearchBar({ search, setSearch, searchInput }) {
-  return (
-    <form onSubmit={searchInput} className="input">
-      <label htmlFor="">Search</label>
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Books"
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
-    </form>
-  );
-}
