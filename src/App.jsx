@@ -2,9 +2,39 @@ import { useState, useEffect } from "react";
 import "./index.css";
 import image from "./noimage.jpg";
 
+// book.volumeInfo.title
+
+const book = [
+  {
+    id: 12,
+    isLiked: false,
+    volumeInfo: {
+      title: "Manchester City | Triple Winner",
+      author: "Pep GUADIOLA",
+    },
+  },
+  {
+    id: 13,
+    isLiked: false,
+    volumeInfo: {
+      title: "Manchester United | Noob Team",
+      author: "Ronaldo",
+    },
+  },
+  {
+    id: 14,
+    isLiked: false,
+    volumeInfo: {
+      title: "Manchester United | Noob Team",
+      author: "Ronaldo",
+    },
+  },
+];
+
 function App() {
-  const [bookData, setBookData] = useState([]);
+  const [bookData, setBookData] = useState(book);
   const [search, setSearch] = useState("");
+  const [favorite, setFavorite] = useState([]);
 
   async function fetchData() {
     const res = await fetch(
@@ -16,7 +46,30 @@ function App() {
 
   function searchInput(e) {
     e.preventDefault();
-    fetchData();
+    if (search === "") {
+      setBookData(book);
+    } else {
+      fetchData();
+    }
+  }
+
+  useEffect(() => {
+    setFavorite(bookData);
+  }, []);
+  useEffect(() => {
+    console.log(favorite);
+  }, [favorite]);
+
+  function handleLiked(id) {
+    const newFav = favorite.map((item) => {
+      item.id === id
+        ? {
+            ...item,
+            isLiked: !item.isLiked,
+          }
+        : item;
+    });
+    setFavorite(newFav);
   }
 
   // useEffect(()=>{
@@ -33,7 +86,11 @@ function App() {
   return (
     <>
       <div className="container">
-        <Header />
+        <div className="header">
+          <Header />
+          <Favorite favorite={favorite} />
+        </div>
+
         <Sidebar />
         <div className="content">
           <SearchBar
@@ -42,7 +99,7 @@ function App() {
             searchInput={searchInput}
           />
           <div className="content-grid">
-            <Card bookData={bookData} />
+            <Card bookData={bookData} handleLiked={handleLiked} />
           </div>
         </div>
       </div>
@@ -52,9 +109,17 @@ function App() {
 export default App;
 
 function Header() {
+  return <div className="header-library">LIBRARY</div>;
+}
+
+function Favorite({favorite}) {
+
+
   return (
-    <div className="header">
-      <h1>LIBRARY</h1>
+    <div className="header-fav">
+      Favorite
+      <span className="cart">🛒</span>
+     <span className="header-fav-count" >{favorite.length}</span>
     </div>
   );
 }
@@ -72,10 +137,10 @@ function Sidebar() {
   );
 }
 
-function Card({ bookData }) {
+function Card({ bookData, handleLiked }) {
   return (
     <>
-      {bookData.map((book) => {
+      {bookData?.map((book) => {
         let thumbnails =
           book.volumeInfo.imageLinks &&
           book.volumeInfo.imageLinks.smallThumbnail;
@@ -100,7 +165,7 @@ function Card({ bookData }) {
             />
             <div className="desc">{!subtitles ? none : subtitles}</div>
             <div className="pages-count">Pages count: {pageCount}</div>
-            <div className="desc">
+            <div className="preview-heart">
               <a
                 className="preview-link"
                 rel="noopener noreferrer"
@@ -109,6 +174,9 @@ function Card({ bookData }) {
               >
                 Preview
               </a>
+              <button onClick={() => handleLiked(book.id)}>
+                {book.isLiked === true ? "🔓 Love" : "🔒 Unlove"}
+              </button>
             </div>
             <div className="type">
               <div className="category">Categories:</div>
