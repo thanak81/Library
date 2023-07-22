@@ -53,23 +53,38 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    setFavorite(bookData);
-  }, []);
-  useEffect(() => {
-    console.log(favorite);
-  }, [favorite]);
 
-  function handleLiked(id) {
-    const newFav = favorite.map((item) => {
-      item.id === id
-        ? {
-            ...item,
-            isLiked: !item.isLiked,
-          }
-        : item;
-    });
-    setFavorite(newFav);
+  function handleLiked(book) {
+    const oldFavorite = [...favorite];
+
+    // const oldFavorite = bookData.map((fav)=>{
+    //   fav.id === id ? {
+    //     ...fav,
+    //     isLiked : !fav.isLiked
+    //   }: [...favorite]
+    // })
+
+    console.log(oldFavorite)
+    const newFavorite = oldFavorite.concat(book)
+
+    console.log(newFavorite)
+    setFavorite(newFavorite)
+  }
+
+  function handleRemove(id){
+    const oldFavorite = [...favorite];
+    const newFavorite = oldFavorite.filter((fil)=>{
+      return fil.id !== id
+    })
+    setFavorite(newFavorite)
+
+  }
+
+  console.log(favorite)
+
+  function favoriteChecker(id){
+    const boolean = favorite.some((book)=>book.id === id)
+    return boolean;
   }
 
   // useEffect(()=>{
@@ -99,7 +114,7 @@ function App() {
             searchInput={searchInput}
           />
           <div className="content-grid">
-            <Card bookData={bookData} handleLiked={handleLiked} />
+            <Card bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker} />
           </div>
         </div>
       </div>
@@ -137,7 +152,7 @@ function Sidebar() {
   );
 }
 
-function Card({ bookData, handleLiked }) {
+function Card({ bookData, handleLiked , handleRemove , favoriteChecker }) {
   return (
     <>
       {bookData?.map((book) => {
@@ -174,9 +189,16 @@ function Card({ bookData, handleLiked }) {
               >
                 Preview
               </a>
-              <button onClick={() => handleLiked(book.id)}>
-                {book.isLiked === true ? "🔓 Love" : "🔒 Unlove"}
+              {favoriteChecker(book.id) ? 
+              
+              <button onClick={() => handleRemove(book.id)}>
+                💔
               </button>
+              : 
+              <button onClick={() => handleLiked(book)}>
+              ❤️
+              </button>
+              }
             </div>
             <div className="type">
               <div className="category">Categories:</div>
