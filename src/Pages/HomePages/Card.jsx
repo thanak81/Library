@@ -1,5 +1,5 @@
-import React from "react";
 import image from "../../noimage.jpg";
+import PropTypes from 'prop-types';
 
 
 export default function Card({ bookData, handleLiked , handleRemove , favoriteChecker }) {
@@ -63,4 +63,11 @@ export default function Card({ bookData, handleLiked , handleRemove , favoriteCh
         })}
       </>
     );
+  }
+
+  Card.propTypes ={
+    bookData : PropTypes.array.isRequired,
+    handleLiked : PropTypes.func.isRequired,
+    handleRemove : PropTypes.func.isRequired,
+    favoriteChecker : PropTypes.func.isRequired,
   }

@@ -1,5 +1,5 @@
 
-function FavoritePage({favorite}) {
+function FavoritePage() {
 
     return (
       <div className="header-fav">

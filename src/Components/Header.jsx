@@ -1,5 +1,5 @@
-import React from "react";
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 function Header({ favorite }) {
   return (
@@ -9,6 +9,11 @@ function Header({ favorite }) {
     </div>
   );
 }
+
+Header.propTypes ={
+  favorite: PropTypes.array.isRequired
+}
+
 export default Header;
 
 function Title() {
@@ -27,4 +32,7 @@ function Favorite({ favorite }) {
       </Link>
     </div>
   );
+}
+Favorite.propTypes ={
+  favorite: PropTypes.array.isRequired
 }

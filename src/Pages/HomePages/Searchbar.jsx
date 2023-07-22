@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types';
+
+
 function SearchBar({ search, setSearch, searchInput }) {
     return (
       <form onSubmit={searchInput} className="input">
@@ -11,6 +14,12 @@ function SearchBar({ search, setSearch, searchInput }) {
         />
       </form>
     );
+  }
+
+  SearchBar.propTypes ={
+    search: PropTypes.string.isRequired,
+    setSearch : PropTypes.func.isRequired,
+    searchInput : PropTypes.string.isRequired,
   }
 
 export default SearchBar

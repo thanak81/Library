@@ -1,5 +1,6 @@
 import SearchBar from "./Searchbar"
 import Card from "./Card"
+import PropTypes from 'prop-types';
 
 function Main({search,setSearch,searchInput,bookData,handleLiked,handleRemove,favoriteChecker}) {
     return (
@@ -14,6 +15,16 @@ function Main({search,setSearch,searchInput,bookData,handleLiked,handleRemove,fa
         </div>
       </div>
     )
+}
+
+Main.propTypes ={
+  search: PropTypes.string.isRequired,
+  setSearch : PropTypes.func.isRequired,
+  searchInput : PropTypes.string.isRequired,
+  bookData : PropTypes.array.isRequired,
+  handleLiked : PropTypes.func.isRequired,
+  handleRemove : PropTypes.func.isRequired,
+  favoriteChecker : PropTypes.func.isRequired,
 }
 
 export default Main

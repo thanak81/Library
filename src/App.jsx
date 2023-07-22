@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState} from "react";
 import "./index.css";
 import FavoritePage from "./Pages/FavoritePages";
 import Header from "./Components/Header";
@@ -8,8 +8,6 @@ import {book} from "./Data/DefaultBookData"
 import {Route,Routes} from 'react-router-dom';
 
 // book.volumeInfo.title
-
-
 
 function App() {
   const [bookData, setBookData] = useState(book);
