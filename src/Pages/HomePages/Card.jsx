@@ -2,7 +2,7 @@ import image from "../../noimage.jpg";
 import PropTypes from 'prop-types';
 
 
-export default function Card({ bookData, handleLiked , handleRemove , favoriteChecker }) {
+export default function Card({favorite, bookData, handleLiked , handleRemove , favoriteChecker }) {
     return (
       <>
         {bookData?.map((book) => {
@@ -41,7 +41,7 @@ export default function Card({ bookData, handleLiked , handleRemove , favoriteCh
                 </a>
                 {favoriteChecker(book.id) ? 
                 
-                <button onClick={() => handleRemove(book.id)}>
+                <button onClick={() => handleRemove(favorite,book.id)}>
                   💔
                 </button>
                 : 

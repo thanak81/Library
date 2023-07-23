@@ -2,7 +2,7 @@ import SearchBar from "./Searchbar"
 import Card from "./Card"
 import PropTypes from 'prop-types';
 
-function Main({search,setSearch,searchInput,bookData,handleLiked,handleRemove,favoriteChecker}) {
+function Main({favorite,search,setSearch,searchInput,bookData,handleLiked,handleRemove,favoriteChecker}) {
     return (
         <div className="content">
         <SearchBar
@@ -11,7 +11,7 @@ function Main({search,setSearch,searchInput,bookData,handleLiked,handleRemove,fa
           searchInput={searchInput}
         />
         <div className="content-grid">
-          <Card bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker} />
+          <Card bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker} favorite={favorite} />
         </div>
       </div>
     )
@@ -20,7 +20,7 @@ function Main({search,setSearch,searchInput,bookData,handleLiked,handleRemove,fa
 Main.propTypes ={
   search: PropTypes.string.isRequired,
   setSearch : PropTypes.func.isRequired,
-  searchInput : PropTypes.string.isRequired,
+  searchInput : PropTypes.func.isRequired,
   bookData : PropTypes.array.isRequired,
   handleLiked : PropTypes.func.isRequired,
   handleRemove : PropTypes.func.isRequired,

@@ -19,7 +19,7 @@ function SearchBar({ search, setSearch, searchInput }) {
   SearchBar.propTypes ={
     search: PropTypes.string.isRequired,
     setSearch : PropTypes.func.isRequired,
-    searchInput : PropTypes.string.isRequired,
+    searchInput : PropTypes.func.isRequired,
   }
 
 export default SearchBar

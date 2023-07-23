@@ -1,11 +1,11 @@
-import {useState} from "react";
+import { useState } from "react";
 import "./index.css";
 import FavoritePage from "./Pages/FavoritePages";
 import Header from "./Components/Header";
 import Sidebar from "./Components/Sidebar";
 import MainContent from "./Pages/HomePages/MainContent";
-import {book} from "./Data/DefaultBookData"
-import {Route,Routes} from 'react-router-dom';
+import { book } from "./Data/DefaultBookData";
+import { Route, Routes } from "react-router-dom";
 
 // book.volumeInfo.title
 
@@ -31,9 +31,8 @@ function App() {
     }
   }
 
-
   function handleLiked(book) {
-    const oldFavorite = [...favorite];
+    // const oldFavorite = [...favorite];
 
     // const oldFavorite = bookData.map((fav)=>{
     //   fav.id === id ? {
@@ -42,26 +41,25 @@ function App() {
     //   }: [...favorite]
     // })
 
-    console.log(oldFavorite)
-    const newFavorite = oldFavorite.concat(book)
+    // console.log(oldFavorite)
+    // const newFavorite = oldFavorite.concat(book)
 
-    console.log(newFavorite)
-    setFavorite(newFavorite)
+    const newFavorite = [...favorite, book];
+
+    console.log(newFavorite);
+    setFavorite(newFavorite);
   }
 
-  function handleRemove(id){
-    const oldFavorite = [...favorite];
-    const newFavorite = oldFavorite.filter((fil)=>{
-      return fil.id !== id
-    })
-    setFavorite(newFavorite)
-
+  function handleRemove(arr,id) {
+    const oldFavorite = [...arr];
+    const newFavorite = oldFavorite.filter((fil) => {
+      return fil.id !== id;
+    });
+    setFavorite(newFavorite);
   }
 
-  console.log(favorite)
-
-  function favoriteChecker(id){
-    const boolean = favorite.some((book)=>book.id === id)
+  function favoriteChecker(id) {
+    const boolean = favorite.some((book) => book.id === id);
     return boolean;
   }
 
@@ -79,21 +77,32 @@ function App() {
   return (
     <>
       <div className="container">
-        <Header favorite={favorite}/>
+        <Header favorite={favorite} />
         <Sidebar />
-        <Routes>
-          <Route path="/" element ={<MainContent search={search} setSearch={setSearch} searchInput={searchInput} bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} favoriteChecker={favoriteChecker}/>} />
-          <Route path="favorite" element={<FavoritePage />} />
-        </Routes>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainContent
+                  search={search}
+                  setSearch={setSearch}
+                  searchInput={searchInput}
+                  bookData={bookData}
+                  handleLiked={handleLiked}
+                  handleRemove={handleRemove}
+                  favoriteChecker={favoriteChecker}
+                  favorite={favorite}
+                />
+              }
+            />
+            <Route
+              path="favorite"
+              element={<FavoritePage favorite={favorite} handleRemove={handleRemove} />}
+            />
+          </Routes>
+
       </div>
     </>
   );
 }
 export default App;
-
-
-
-
-
-
-
