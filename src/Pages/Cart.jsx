@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import image from "../noimage.jpg";
 
 
-function FavoritePage({favorite,handleRemove,setFavorite}) {
-
+function Cart({addtoCart,handleRemove,setaddtoCart}) {
   const [sortBy,setSortBy] = useState("input")
   const [validation,setValidation] = useState(false)
 
   let sortedBook;
-  if(sortBy === "input") sortedBook = favorite;
-  if(sortBy === "name") sortedBook = favorite.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
-  if(sortBy === "rating") sortedBook = favorite.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
+  if(sortBy === "input") sortedBook = addtoCart;
+  if(sortBy === "name") sortedBook = addtoCart.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
+  if(sortBy === "rating") sortedBook = addtoCart.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
 
 
 
@@ -24,10 +23,11 @@ function FavoritePage({favorite,handleRemove,setFavorite}) {
 
   return (
     <div className="content">
-      {validation === false ? (<div className="no-favorite">No Favorite</div>): (
+
+      {validation === false ? (<div className="no-favorite">No Cart</div>): (
         <>
              <div className="favorite-header">
-             <div>Favorite List</div>
+             <div>Cart List</div>
              <div className="sort">
                <label htmlFor="sort">Sort</label>
                <select name="sortBook" value={sortBy} onChange={(e)=>setSortBy(e.target.value)}>
@@ -74,9 +74,9 @@ function FavoritePage({favorite,handleRemove,setFavorite}) {
                      </a>
                      <button
                        className="favorite-remove"
-                       onClick={()=>handleRemove(sortedBook,book.id,setFavorite)}
+                       onClick={()=>handleRemove(sortedBook,book.id,setaddtoCart)}
                      >
-                       Remove from favorite
+                       Remove from Cart
                      </button>
                    </div>
                    <div className="type">
@@ -98,4 +98,4 @@ function FavoritePage({favorite,handleRemove,setFavorite}) {
   );
 }
 
-export default FavoritePage;
+export default Cart;

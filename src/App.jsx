@@ -6,6 +6,7 @@ import Sidebar from "./Components/Sidebar";
 import MainContent from "./Pages/HomePages/MainContent";
 import { book } from "./Data/DefaultBookData";
 import { Route, Routes } from "react-router-dom";
+import Cart from "./Pages/Cart";
 
 // book.volumeInfo.title
 
@@ -13,6 +14,7 @@ function App() {
   const [bookData, setBookData] = useState(book);
   const [search, setSearch] = useState("");
   const [favorite, setFavorite] = useState([]);
+  const [addtoCart,setaddtoCart] = useState([])
 
   async function fetchData() {
     const res = await fetch(
@@ -50,17 +52,24 @@ function App() {
     setFavorite(newFavorite);
   }
 
-  function handleRemove(arr,id) {
+  function handleRemove(arr,id,setState) {
     const oldFavorite = [...arr];
     const newFavorite = oldFavorite.filter((fil) => {
       return fil.id !== id;
     });
-    setFavorite(newFavorite);
+    setState(newFavorite);
   }
 
-  function favoriteChecker(id) {
-    const boolean = favorite.some((book) => book.id === id);
+  function Checker(arr,id) {
+    const boolean = arr.some((book) => book.id === id);
     return boolean;
+  }
+
+
+  function addToCart(book){
+    const cart = [...addtoCart,book]
+    setaddtoCart(cart)
+    console.log(cart)
   }
 
   // useEffect(()=>{
@@ -77,7 +86,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <Header favorite={favorite} />
+        <Header favorite={favorite} addtoCart={addtoCart} />
         <Sidebar />
           <Routes>
             <Route
@@ -90,14 +99,22 @@ function App() {
                   bookData={bookData}
                   handleLiked={handleLiked}
                   handleRemove={handleRemove}
-                  favoriteChecker={favoriteChecker}
+                  Checker={Checker}
+                  setFavorite={setFavorite}
                   favorite={favorite}
+                  addToCart={addToCart}
+                  addtoCart={addtoCart}
+                  setaddtoCart={setaddtoCart}
                 />
               }
             />
             <Route
               path="favorite"
-              element={<FavoritePage favorite={favorite} handleRemove={handleRemove} />}
+              element={<FavoritePage setFavorite={setFavorite} favorite={favorite} handleRemove={handleRemove} />}
+            />
+            <Route 
+              path="cart"
+              element={<Cart setaddtoCart={setaddtoCart} addtoCart={addtoCart} handleRemove={handleRemove}/>}
             />
           </Routes>
 

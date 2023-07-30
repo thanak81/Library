@@ -1,11 +1,14 @@
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
 
-function Header({ favorite }) {
+function Header({ favorite,addtoCart }) {
   return (
     <div className="header">
       <Title />
+      <div className="header-feature">
       <Favorite favorite={favorite} />
+      <AddToCart addtoCart={addtoCart} />
+      </div>
     </div>
   );
 }
@@ -27,7 +30,7 @@ function Favorite({ favorite }) {
     <div className="header-fav">
       Favorite
       <Link to="favorite">
-        <span className="cart">🛒</span>
+        <span className="cart">❤️</span>
         <span className="header-fav-count">{favorite.length}</span>
       </Link>
     </div>
@@ -35,4 +38,16 @@ function Favorite({ favorite }) {
 }
 Favorite.propTypes ={
   favorite: PropTypes.array.isRequired
+}
+
+function AddToCart({addtoCart}){
+  return(
+    <div className="header-fav">
+      Cart
+      <Link to="cart">
+        <span className="cart">🛒</span>
+        <span className="header-fav-count">{addtoCart.length}</span>
+      </Link>
+    </div>
+  )
 }
