@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import image from "../noimage.jpg";
+import image from "../../noimage.jpg";
 
 
 function Cart({addtoCart,handleRemove,setaddtoCart}) {
+  console.log("Cart")
   const [sortBy,setSortBy] = useState("input")
   const [validation,setValidation] = useState(false)
 
@@ -22,7 +23,7 @@ function Cart({addtoCart,handleRemove,setaddtoCart}) {
   },[sortedBook.length])
 
   return (
-    <div className="content">
+    <div className="content cart-content">
 
       {validation === false ? (<div className="no-favorite">No Cart</div>): (
         <>
@@ -37,7 +38,7 @@ function Cart({addtoCart,handleRemove,setaddtoCart}) {
                </select>
              </div>
            </div>
-           <div className="content-grid favorite-lists">
+           <div className="cart-grid">
            {sortedBook?.map((book) => {
                let thumbnails =
                  book.volumeInfo.imageLinks &&
@@ -51,7 +52,7 @@ function Cart({addtoCart,handleRemove,setaddtoCart}) {
                let none = "No Details";
        
                return (
-                 <div className="card" key={book.id}>
+                 <div className="card cart-card" key={book.id}>
                    <div className="title">{title}</div>
                    <img
                      src={!thumbnails ? image : thumbnails}

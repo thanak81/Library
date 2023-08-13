@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import image from "../noimage.jpg";
 
 
-function FavoritePage({favorite,handleRemove,setFavorite}) {
-
+function FavoritePage({favorite,handleRemove,setFavorite,setTitle,title}) {
+  console.log("Favorite pAGES")
   const [sortBy,setSortBy] = useState("input")
   const [validation,setValidation] = useState(false)
 
@@ -11,7 +11,6 @@ function FavoritePage({favorite,handleRemove,setFavorite}) {
   if(sortBy === "input") sortedBook = favorite;
   if(sortBy === "name") sortedBook = favorite.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
   if(sortBy === "rating") sortedBook = favorite.slice().sort((a,b)=>a.volumeInfo.title.localeCompare(b.volumeInfo.title))
-
 
 
   useEffect(()=>{

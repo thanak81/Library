@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 import FavoritePage from "./Pages/FavoritePages";
 import Header from "./Components/Header";
@@ -6,15 +6,18 @@ import Sidebar from "./Components/Sidebar";
 import MainContent from "./Pages/HomePages/MainContent";
 import { book } from "./Data/DefaultBookData";
 import { Route, Routes } from "react-router-dom";
-import Cart from "./Pages/Cart";
+import Cart from "./Pages/AddtoCartPages/Cart";
+import MainAddtoCart from "./Pages/AddtoCartPages/MainAddtoCart";
 
 // book.volumeInfo.title
 
 function App() {
+  console.log("App")
   const [bookData, setBookData] = useState(book);
   const [search, setSearch] = useState("");
   const [favorite, setFavorite] = useState([]);
   const [addtoCart,setaddtoCart] = useState([])
+  const [title,setTitle] = useState("Home | Library")
 
   async function fetchData() {
     const res = await fetch(
@@ -51,6 +54,10 @@ function App() {
     console.log(newFavorite);
     setFavorite(newFavorite);
   }
+
+  useEffect(()=>{
+    document.title = title
+  },[title])
 
   function handleRemove(arr,id,setState) {
     const oldFavorite = [...arr];
@@ -110,11 +117,12 @@ function App() {
             />
             <Route
               path="favorite"
-              element={<FavoritePage setFavorite={setFavorite} favorite={favorite} handleRemove={handleRemove} />}
+              element={<FavoritePage setFavorite={setFavorite} favorite={favorite} handleRemove={handleRemove} setTitle={setTitle} title={title}/>}
             />
             <Route 
               path="cart"
-              element={<Cart setaddtoCart={setaddtoCart} addtoCart={addtoCart} handleRemove={handleRemove}/>}
+              // element={<Cart setaddtoCart={setaddtoCart} addtoCart={addtoCart} handleRemove={handleRemove}/>}
+              element={<MainAddtoCart setaddtoCart={setaddtoCart} addtoCart={addtoCart} handleRemove={handleRemove}/>}
             />
           </Routes>
 

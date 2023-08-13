@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
 
 function Header({ favorite,addtoCart }) {
+  console.log("Header")
   return (
     <div className="header">
       <Title />

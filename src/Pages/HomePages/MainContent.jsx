@@ -3,7 +3,8 @@ import Card from "./Card"
 import PropTypes from 'prop-types';
 
 function Main({setaddtoCart,addtoCart,addToCart,setFavorite,favorite,search,setSearch,searchInput,bookData,handleLiked,handleRemove,Checker}) {
-    return (
+  console.log("Main Content")  
+  return (
         <div className="content">
         <SearchBar
           search={search}

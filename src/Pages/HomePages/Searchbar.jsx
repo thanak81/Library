@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 
 function SearchBar({ search, setSearch, searchInput }) {
+  console.log("Search bar")
     return (
       <form onSubmit={searchInput} className="input">
         <label htmlFor="">Search</label>

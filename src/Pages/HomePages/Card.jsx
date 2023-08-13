@@ -12,6 +12,8 @@ export default function Card({
   addtoCart,
   setaddtoCart
 }) {
+  console.log("card")
+
   return (
     <>
       {bookData?.map((book) => {

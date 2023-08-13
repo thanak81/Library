@@ -1,4 +1,5 @@
 export default function Sidebar() {
+  console.log("Sidebar")
     return (
       <div className="sidebar">
         <h2>Sidebar</h2>

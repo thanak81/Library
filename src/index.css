@@ -264,4 +264,34 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+
+.cart-section{
+    display: flex;
+    flex-direction: row;
+    grid-area: main;
+    font-size: 4rem;
+    background-color: #18b4aa;
+    color: white;
+    padding: 10px;
+    gap: 10px;
+}
+
+.checkout{
+    border: 1px solid black;
+    width: 40%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: #285754;
+}
+
+.cart-content{
+    display: flex;
+    width: 60%;
 }
