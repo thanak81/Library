@@ -1,18 +1,13 @@
-import SearchBar from "./Searchbar"
-import Card from "./Card"
+
 import PropTypes from 'prop-types';
 
-function Main({setaddtoCart,addtoCart,addToCart,setFavorite,favorite,search,setSearch,searchInput,bookData,handleLiked,handleRemove,Checker}) {
+function Main({search,card}) {
   console.log("Main Content")  
   return (
         <div className="content">
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          searchInput={searchInput}
-        />
+          {search}
         <div className="content-grid">
-          <Card addtoCart={addtoCart} setaddtoCart={setaddtoCart} setFavorite={setFavorite} bookData={bookData} handleLiked={handleLiked} handleRemove={handleRemove} Checker={Checker} favorite={favorite} addToCart={addToCart} />
+          {card}
         </div>
       </div>
     )
@@ -20,12 +15,7 @@ function Main({setaddtoCart,addtoCart,addToCart,setFavorite,favorite,search,setS
 
 Main.propTypes ={
   search: PropTypes.string.isRequired,
-  setSearch : PropTypes.func.isRequired,
-  searchInput : PropTypes.func.isRequired,
-  bookData : PropTypes.array.isRequired,
-  handleLiked : PropTypes.func.isRequired,
-  handleRemove : PropTypes.func.isRequired,
-  Checker : PropTypes.func.isRequired,
+  card : PropTypes.string.isRequired
 }
 
 export default Main

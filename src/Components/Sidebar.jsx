@@ -1,4 +1,6 @@
-export default function Sidebar() {
+import React from "react";
+
+function Sidebar() {
   console.log("Sidebar")
     return (
       <div className="sidebar">
@@ -11,3 +13,5 @@ export default function Sidebar() {
       </div>
     );
   }
+
+  export default React.memo(Sidebar);

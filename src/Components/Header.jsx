@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function Header({ favorite,addtoCart }) {
   console.log("Header")
@@ -18,7 +19,7 @@ Header.propTypes ={
   favorite: PropTypes.array.isRequired
 }
 
-export default Header;
+export default React.memo(Header);
 
 function Title() {
     return(

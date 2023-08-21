@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import image from "../../noimage.jpg";
 import PropTypes from "prop-types";
 
