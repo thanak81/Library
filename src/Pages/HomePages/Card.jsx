@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import image from "../../noimage.jpg";
 import PropTypes from "prop-types";
+import Modals from "../../Components/Modals";
 
 export default function Card({
   favorite,
@@ -11,7 +12,12 @@ export default function Card({
   Checker,
   addToCart,
   addtoCart,
-  setaddtoCart
+  setaddtoCart,
+  openModal,
+  setOpenModal,
+  selectedBook,
+  expandModal,
+  closeModal
 }) {
   console.log("card")
 
@@ -45,7 +51,7 @@ export default function Card({
             <div className="preview-heart">
               {Checker(addtoCart, book.id) ? (
                 <button
-                  className="btn add-to-card"
+                  className="btn add-to-card remove"
                   onClick={() => handleRemove(addtoCart, book.id,setaddtoCart)}
                 >
                   Remove from cart
@@ -59,20 +65,21 @@ export default function Card({
                 </button>
               )}
 
-              <a
+              {/* <a
                 className="preview-link"
                 rel="noopener noreferrer"
                 target="_blank"
-                href={preview}
+                href={<Modals openModal={openModal}/>}
               >
                 Preview
-              </a>
+              </a> */}
+              <button className="preview-link" onClick={()=> expandModal(book)}>Preview</button>
               {Checker(favorite, book.id) ? (
-                <button onClick={() => handleRemove(favorite, book.id,setFavorite)}>
+                <button className="heart-btn" onClick={() => handleRemove(favorite, book.id,setFavorite)}>
                   💔
                 </button>
               ) : (
-                <button onClick={() => handleLiked(book)}>❤️</button>
+                <button className="heart-btn" onClick={() => handleLiked(book)}>❤️</button>
               )}
             </div>
             <div className="type">
@@ -86,6 +93,7 @@ export default function Card({
           </div>
         );
       })}
+      <Modals openModal={openModal} selectedBook={selectedBook} closeModal={closeModal}/>
     </>
   );
 }

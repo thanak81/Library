@@ -37,7 +37,6 @@ function App() {
     }
   });
   const [title, setTitle] = useState("Home | Library");
-
   useEffect(()=>{
     localStorage.setItem('addtoCart',JSON.stringify(addtoCart))
     localStorage.setItem('favorite',JSON.stringify(favorite))
@@ -111,12 +110,23 @@ function App() {
   //   }
   //   fetchData();
   // },[])
+  const [selectedBook,setSelectedBook] = useState(null)
+  const [openModal, setOpenModal] = useState(false);
+  
 
+  function expandModal(book){
+    setSelectedBook(book);
+    setOpenModal(true)
+  }
+  function closeModal(){
+    setSelectedBook(null)
+    setOpenModal(false)
+  }
   return (
     <>
       <div className="container">
         <Header favorite={favorite} addtoCart={addtoCart} />
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Routes>
           <Route
             path="/"
@@ -140,6 +150,11 @@ function App() {
                     Checker={Checker}
                     favorite={favorite}
                     addToCart={addToCart}
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    selectedBook={selectedBook}
+                    expandModal={expandModal}
+                    closeModal={closeModal}
                   />
                 }
               />

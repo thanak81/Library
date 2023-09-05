@@ -3,7 +3,6 @@ import image from "../noimage.jpg";
 
 
 function FavoritePage({favorite,handleRemove,setFavorite,setTitle,title}) {
-  console.log("Favorite pAGES")
   const [sortBy,setSortBy] = useState("input")
   const [validation,setValidation] = useState(false)
 

@@ -23,7 +23,7 @@ export default React.memo(Header);
 
 function Title() {
     return(
-        <div className="header-library"><Link to="/">LIBRARY</Link></div>
+        <div ><Link to="/" className="header-library">LIBRARY</Link></div>
     )
 }
 
